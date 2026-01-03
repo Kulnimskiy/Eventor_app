@@ -52,19 +52,22 @@ async function getNotifications() {
 
             notificationsContainer.appendChild(card);
         });
+        return data
 
     } catch (err) {
         console.error(err);
         notificationsContainer.innerText = "Failed to load notifications";
+        return null
     }
 }
 
 
 document.getElementById("actionBtn").addEventListener("click", () => {
     console.log("call")
-    getNotifications();
+    let data = getNotifications();
     tg.sendData(JSON.stringify({
         action: "button_clicked",
+        data: data,
         time: Date.now()
     }));
 });
