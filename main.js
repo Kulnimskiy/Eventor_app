@@ -57,7 +57,7 @@ async function getNotifications() {
     } catch (err) {
         console.error(err);
         notificationsContainer.innerText = "Failed to load notifications";
-        return null
+        return { error: err.message }
     }
 }
 
