@@ -33,6 +33,9 @@ button:active {
     opacity: 0.8;
 }
 
+#notifications-container {
+    margin-top: 20px;
+}
 .notification {
     padding: 12px;
     border-radius: 12px;
