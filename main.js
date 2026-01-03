@@ -18,6 +18,8 @@ if (user) {
 
 async function getNotifications() {
     try {
+        console.log("call 2")
+
         const response = await fetch("http://127.0.0.1:8000/notifications/list/?from_user_id=1226837950");
         if (!response.ok) throw new Error("Request failed");
 
@@ -31,6 +33,7 @@ async function getNotifications() {
 
 
 document.getElementById("actionBtn").addEventListener("click", () => {
+    console.log("call")
     getNotifications();
     tg.sendData(JSON.stringify({
         action: "button_clicked",
