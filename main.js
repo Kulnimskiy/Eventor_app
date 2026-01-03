@@ -16,7 +16,22 @@ if (user) {
         "User data not available.";
 }
 
+async function getNotifications() {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/notifications/list/?from_user_id=1226837950");
+        if (!response.ok) throw new Error("Request failed");
+
+        const data = await response.json();
+        user_info.innerText = JSON.stringify(data, null, 2);
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
 document.getElementById("actionBtn").addEventListener("click", () => {
+    getNotifications();
     tg.sendData(JSON.stringify({
         action: "button_clicked",
         time: Date.now()
