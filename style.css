@@ -32,3 +32,35 @@ button {
 button:active {
     opacity: 0.8;
 }
+
+.notification {
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.notification.inactive {
+    opacity: 0.6;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.notification-name {
+    font-weight: 600;
+}
+
+.notification-date {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.notification-message {
+    font-size: 15px;
+    line-height: 1.4;
+}

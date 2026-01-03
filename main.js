@@ -16,18 +16,46 @@ if (user) {
         "User data not available.";
 }
 
+const notificationsContainer = document.getElementById("notifications-container");
+
 async function getNotifications() {
     try {
-        console.log("call 2")
-
-        const response = await fetch("http://127.0.0.1:8000/notifications/list/?from_user_id=1226837950");
+        const response = await fetch(
+            "http://127.0.0.1:8000/notifications/list/?from_user_id=1226837950"
+        );
         if (!response.ok) throw new Error("Request failed");
 
         const data = await response.json();
-        user_info.innerText = JSON.stringify(data, null, 2);
-        console.log(data);
+
+        notificationsContainer.innerHTML = "";
+
+        if (data.length === 0) {
+            notificationsContainer.innerText = "No notifications";
+            return;
+        }
+
+        data.forEach(n => {
+            const card = document.createElement("div");
+            card.className = "notification" + (n.active ? "" : " inactive");
+
+            card.innerHTML = `
+                <div class="notification-header">
+                    <span class="notification-name">${n.to_user_name}</span>
+                    <span class="notification-date">
+                        ${new Date(n.created_at).toLocaleString()}
+                    </span>
+                </div>
+                <div class="notification-message">
+                    ${n.message}
+                </div>
+            `;
+
+            notificationsContainer.appendChild(card);
+        });
+
     } catch (err) {
         console.error(err);
+        notificationsContainer.innerText = "Failed to load notifications";
     }
 }
 
