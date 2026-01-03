@@ -6,12 +6,13 @@ tg.expand();
 
 // Access user data
 const user = tg.initDataUnsafe?.user;
+const user_info = document.getElementById("user-info")
 
 if (user) {
-    document.getElementById("user-info").innerText =
+    user_info.innerText =
         `Здравствуйте, ${user.first_name}!`;
 } else {
-    document.getElementById("user-info").innerText =
+    user_info.innerText =
         "User data not available.";
 }
 
