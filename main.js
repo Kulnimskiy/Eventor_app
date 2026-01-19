@@ -21,7 +21,8 @@ const notificationsContainer = document.getElementById("notifications-container"
 async function getNotifications() {
     try {
         const url = new URL("/notifications/list/", bot_host);
-        url.searchParams.set("from_user_id", user.id);
+        // url.searchParams.set("from_user_id", user.id);
+        url.searchParams.set("from_user_id", "1226837950");
 
         const response = await fetch(url);
 
