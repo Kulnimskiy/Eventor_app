@@ -3,7 +3,7 @@ const tg = window.Telegram.WebApp;
 // Initialize the app
 tg.ready();
 tg.expand();
-
+const bot_host = "http://147.45.142.106:8000"
 // Access user data
 const user = tg.initDataUnsafe?.user;
 const user_info = document.getElementById("user-info")
@@ -20,10 +20,14 @@ const notificationsContainer = document.getElementById("notifications-container"
 
 async function getNotifications() {
     try {
-        const response = await fetch(
-            "http://127.0.0.1:8000/notifications/list/?from_user_id=1226837950"
-        );
-        if (!response.ok) throw new Error("Request failed");
+        const url = new URL("/notifications/list/", bot_host);
+        url.searchParams.set("from_user_id", user.id);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+        }
 
         const data = await response.json();
 
@@ -57,14 +61,14 @@ async function getNotifications() {
     } catch (err) {
         console.error(err);
         notificationsContainer.innerText = "Failed to load notifications";
-        return { error: err.message }
+        return {error: err.message}
     }
 }
 
 
-document.getElementById("actionBtn").addEventListener("click", () => {
+document.getElementById("actionBtn").addEventListener("click", async () => {
     console.log("call")
-    let data = getNotifications();
+    let data = await getNotifications();
     tg.sendData(JSON.stringify({
         action: "button_clicked",
         data: data,
